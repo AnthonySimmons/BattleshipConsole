@@ -1,0 +1,112 @@
+#include"header.h"
+
+
+void welcome_screen(void)
+{
+	printf("\n\t\t\t\tBATTLESHIP!!!\n\n");
+	//printf("Press any key to see the rules. . .\n\n");
+	//system("Pause");
+	//system("cls");
+	printf("\n\t\t\tRules of Battleship: \n\n");
+	printf("Players place their 'fleet' of 5 ships on their 'ocean', hidden from the\n");
+	printf("opponent's view. Taking turns, players call out their 'shots' attempting to\n");
+	printf("get 'hits' on the opponent's ships in order to sink them. Strategy and some\n");
+	printf("luck must be combined to be the first to locate and sink all 5 opponent's\n");
+	printf("ships to win the game. The object of the game is to be the first player to\n");
+	printf("sink all five of his opponent's ships. Each player SECRETLY places his fleet\n");
+	printf("of 5 ships on his ocean grid. Ships may be placed in any horizontal or vertical\n");
+	printf("position - but NOT diagonally. You MAY NOT change the position of any ship.\n");
+	printf("To do so would be cheating!\n\n");
+	printf("Types of Ships: \tSize:\n\n");
+	printf("Aircraft Carrier \t5 \nBattleship \t\t4 \nCruiser \t\t3 \nSubmarine \t\t3 \nDestroyer \t\t2\n\n");
+}
+
+
+void initialize_game_board(char *arr)
+{	
+	int x = 0, y = 0;
+	char board[10][10];
+	printf("\t  A B C D E F G H I J\n\t");
+	for(x = 0; x < 10; x++)
+	{
+		printf("%d ", x + 1);
+		for(y = 0; y < 10; y++)
+		{
+			board[x][y] = '~';
+			printf("%c ", board[x][y]);
+			if(y == 9)
+			{
+				printf("\n\t");
+			}
+		}
+		if(x == 9)
+		{
+			printf("\n ");
+		}
+		if(x < 10)
+		{
+			printf(" ");
+		}
+	}
+}
+
+int select_who_starts_first(void)
+{
+	int select = 0, player = 0;
+	select = rand() % 2;
+	if(select == 0)
+	{
+		printf("Player1 (Human) goes first. . .\n\n");
+		player = 1;
+	}
+	if(select == 1)
+	{
+		printf("Player2 (CPU) goes first. . .\n\n");
+		player = 2;
+	}
+	return player;
+}
+
+int deploy_ships(void)
+{
+	int deploy = 0;
+	printf("How would you like to deploy your ships?\n1) Manually\n2) Randomly\n\n");
+	scanf("%d", &deploy);
+	return deploy;
+}
+
+void manually_place_ships_on_board(int *xcar, int *ycar, int *xb, int *yb, int *xcru, int *ycru, int *xs, int *ys, int *xd, int *yd)
+{
+	//carrier - 5, battleship - 4, cruiser - 3, submarine - 3, destroyer - 2
+	printf("Enter the endpoint coordinates for your Aircraft Carrier: \n");
+	scanf("%d %d", xcar, ycar);
+	printf("Enter the endpoint coordinates for your Battleship: \n");
+	scanf("%d %d", xb, yb);
+	printf("Enter the endpoint coordinates for your Cruiser: \n");
+	scanf("%d %d", xcru, ycru);
+	printf("Enter the endpoint coordinates for your Submarine: \n");
+	scanf("%d %d", xs, ys);
+	printf("Enter the endpoint coordinates for your Destroyer: \n");
+	scanf("%d %d", xd, yd);
+
+
+}
+
+void randomly_place_ships_on_board(int *x, int *y, int size, int *point)
+{
+	int way = 0;
+	do{
+	*x = rand() % 10 + 1;
+	*y = rand() % 10 + 1;
+	way = rand() % 2;
+	if(way == 0)
+	{
+		*point = *x - size;
+	}
+	if(way == 1)
+	{
+		*point = *y - size;
+	}
+	}while(*point < 1);
+
+}
